@@ -25,37 +25,22 @@ class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Snack Bar'),
-        centerTitle: true,
-      ),
-      /*
-      Flutter 1.0 Code
-      body: Builder(builder: (BuildContext ctx) { 
-        return Center(...) 
-                      ^^^: 이 부분이 context
-        reference: https://www.youtube.com/watch?v=-zxGPfjiQQA&list=PLQt_pzi-LLfpcRFhWMywTePfZ2aPapvyl&index=19&t=12m40s
-      },)
-       */
-      body: Center(
-        child: TextButton(
-          onPressed: () {
-            // 함수이므로 끝에 ;
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('Hello World!'),
-            ));
-          },
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.red),
+      backgroundColor: Colors.blue,
+      body: SafeArea(
+        child: Container(
+          width: 100,
+          height: 100,
+          margin: EdgeInsets.symmetric(
+            vertical: 50,
+            horizontal: 10,
           ),
-          child: Text(
-            "show Me",
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
+          padding: EdgeInsets.all(20),
+          color: Colors.blue[200],
+          child: Text("data"),
         ),
       ),
     );
   }
 }
+
+// Container는 Page 내에서 최대한 많은 공간을 차지하는 특징이 있습니다.
