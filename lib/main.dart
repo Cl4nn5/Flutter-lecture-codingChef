@@ -15,62 +15,51 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: MyPage(),
+      home: FirstPage(),
     );
   }
 }
 
-class MyPage extends StatelessWidget {
+// FirstPage stateless widget
+class FirstPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // var
+    getPage2() => MaterialPageRoute(builder: (context) => SecondPage());
+
+    // return
     return Scaffold(
-      backgroundColor: Colors.teal,
-      body: SafeArea(
-        child: Row(
-          // verticalDirection: VerticalDirection.down,
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
-          // mainAxisSize: MainAxisSize.min,
-          children: [
-            /* 
-              가로 세로 100px 
-              색상 [화이트 블루 레드]
-              각각의 container 이름 부여
-            */
-            MyContainer1(),
-            MyContainer1(
-              flexWidth: 100,
-              color: Colors.blue,
-            ),
-            SizedBox(
-              width: 100,
-              height: 100,
-            ),
-            MyContainer1(),
-          ],
+      appBar: AppBar(
+        title: Text('First Page'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: Text('Go To Second Page'),
+          onPressed: () {
+            Navigator.push(context, getPage2());
+          },
         ),
       ),
     );
   }
 }
 
-// class MyContainer1 extends StatelessWidget { 매개변수 String color 추가
-class MyContainer1 extends StatelessWidget {
-  final int flexWidth;
-  final Color color;
-  const MyContainer1({
-    super.key,
-    this.color = Colors.white,
-    this.flexWidth = 100,
-  });
-
+// SecondPage stateless widget
+class SecondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: flexWidth.toDouble(),
-      height: 100,
-      color: color,
-      child: Text('white'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Second Page'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: Text('Go to First Page'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
     );
   }
 }
@@ -78,11 +67,16 @@ class MyContainer1 extends StatelessWidget {
 // vscode 가 가볍고 편한것이 장점
 // andStudio 다양하고 효율적인 기능과 안정적인것이 장점
 /* 
-  * column widget은 세로축 방향으로 가능한 모든 공간을 차지한다.
+  ? context
+  * route는 material app의 child로 생성되어야 한다.
+  * 모든 앱은 material appWidget이 감싸고 있어야 한다.
+  * firstPage의 위치를 정확히 알기 위해서 context argument가 필요하다.
+
+ */
+/* 
   * new Keywords
-  1. verticalDirection
-  2. mainAxisAlignment
-  3. crossAxisAlignment
-  4. mainAxisSize
+  1. Navigator
+  2. MaterialPageRoute
+  3. 자료구조 Stack => push, pop
  */
 
