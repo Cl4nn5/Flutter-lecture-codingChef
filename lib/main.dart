@@ -1,7 +1,7 @@
-// ignore_for_file: prefer_const_constructors, avoid_print
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print, avoid_unnecessary_containers,use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() => runApp(const MyApp());
 
@@ -12,10 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Snack Bar',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
+      title: 'Toast MaterialApp',
       home: MyPage(),
     );
   }
@@ -26,36 +23,43 @@ class MyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Snack Bar'),
+        title: Text("Toast message"),
         centerTitle: true,
       ),
-      /*
-      Flutter 1.0 Code
-      body: Builder(builder: (BuildContext ctx) { 
-        return Center(...) 
-                      ^^^: 이 부분이 context
-        reference: https://www.youtube.com/watch?v=-zxGPfjiQQA&list=PLQt_pzi-LLfpcRFhWMywTePfZ2aPapvyl&index=19&t=12m40s
-      },)
-       */
       body: Center(
-        child: TextButton(
+        child: ElevatedButton(
           onPressed: () {
-            // 함수이므로 끝에 ;
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('Hello World!'),
-            ));
+            print("Button is clicked");
+            flutterToast();
           },
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.red),
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.redAccent,
           ),
           child: Text(
-            "show Me",
-            style: TextStyle(
-              color: Colors.white,
-            ),
+            "Toast",
+            style: TextStyle(color: Colors.white),
           ),
         ),
       ),
     );
   }
 }
+
+void flutterToast() {
+  Fluttertoast.showToast(
+    msg: "This is Center Short Toast",
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.BOTTOM,
+    // timeInSecForIosWeb: 1,
+    backgroundColor: Colors.red,
+    textColor: Colors.white,
+    fontSize: 16.0,
+  );
+}
+
+// toast Message는 widget tree와 상관 없이 호출 가능하다.
+// lib 추가 후 import 할 때 pubspec.yaml 파일에 추가해야 한다.
+// pubspec.yaml 파일에 추가 후 pub get을 해야 한다.
+// pub get을 하지 않으면 import가 되지 않는다.
+// 1. flutter clean 
+// 2. flutter pub get
